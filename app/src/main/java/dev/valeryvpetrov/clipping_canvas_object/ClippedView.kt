@@ -1,10 +1,8 @@
 package dev.valeryvpetrov.clipping_canvas_object
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import kotlin.jvm.JvmOverloads
@@ -85,7 +83,22 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawDifferenceClippingExample(canvas: Canvas) {
-        // TODO
+        canvas.save()
+        // move the origin to the right for the next rectangle
+        canvas.translate(columnTwo, rowOne)
+        // use the subtraction of two clipping rectangles to create a frame
+        canvas.clipRect(2 * rectInset, 2 * rectInset,
+            clipRectRight - 2 * rectInset, clipRectBottom - 2 * rectInset)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            canvas.clipRect(4 * rectInset, 4 * rectInset,
+                clipRectRight - 4 * rectInset, clipRectBottom - 4 * rectInset,
+                Region.Op.DIFFERENCE)
+        } else {
+            canvas.clipOutRect(4 * rectInset, 4 * rectInset,
+                clipRectRight - 4 * rectInset, clipRectBottom - 4 * rectInset)
+        }
+        drawClippedRect(canvas)
+        canvas.restore()
     }
 
     private fun drawCircularClippingExample(canvas: Canvas) {

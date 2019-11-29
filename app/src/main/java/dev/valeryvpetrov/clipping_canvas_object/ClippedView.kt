@@ -36,6 +36,11 @@ class ClippedView @JvmOverloads constructor(
     private val rowFour = rowThree + rectInset + clipRectBottom
     private val rowText = rowFour + (1.5* clipRectBottom)
 
+    private val rectF = RectF(
+        rectInset, rectInset,
+        clipRectRight - rectInset,clipRectBottom - rectInset
+    )
+
     init {
         paint.isAntiAlias = true
         paint.strokeWidth = resources.getDimension(R.dimen.strokeWidth)
@@ -158,7 +163,13 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawRoundedRectangleClippingExample(canvas: Canvas) {
-        // TODO
+        canvas.save()
+        canvas.translate(columnTwo, rowThree)
+        path.rewind()
+        path.addRoundRect(rectF, clipRectRight / 4, clipRectRight / 4, Path.Direction.CCW)
+        canvas.clipPath(path)
+        drawClippedRect(canvas)
+        canvas.restore()
     }
 
     private fun drawOutsideClippingExample(canvas: Canvas) {

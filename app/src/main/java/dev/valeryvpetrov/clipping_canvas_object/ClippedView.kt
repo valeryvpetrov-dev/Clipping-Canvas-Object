@@ -76,7 +76,12 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawBackAndUnclippedRectangle(canvas: Canvas) {
-        // TODO
+        canvas.drawColor(Color.GRAY)
+        canvas.save()
+        canvas.translate(columnOne, rowOne)
+        drawClippedRect(canvas)
+        // remove all modifications to the matrix/clip state since the last save call
+        canvas.restore()
     }
 
     private fun drawDifferenceClippingExample(canvas: Canvas) {

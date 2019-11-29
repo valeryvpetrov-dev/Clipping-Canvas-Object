@@ -173,7 +173,12 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawOutsideClippingExample(canvas: Canvas) {
-        // TODO
+        canvas.save()
+        canvas.translate(columnOne,rowFour)
+        canvas.clipRect(2 * rectInset,2 * rectInset,
+            clipRectRight - 2 * rectInset, clipRectBottom - 2 * rectInset)
+        drawClippedRect(canvas)
+        canvas.restore()
     }
 
     private fun drawSkewedTextExample(canvas: Canvas) {

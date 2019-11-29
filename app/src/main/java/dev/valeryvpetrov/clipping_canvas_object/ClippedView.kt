@@ -118,7 +118,24 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawIntersectionClippingExample(canvas: Canvas) {
-        // TODO
+        canvas.save()
+        canvas.translate(columnTwo, rowTwo)
+        canvas.clipRect(
+            clipRectLeft, clipRectTop,
+            clipRectRight - smallRectOffset, clipRectBottom - smallRectOffset
+        )
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            canvas.clipRect(
+                clipRectLeft + smallRectOffset, clipRectTop + smallRectOffset,
+                clipRectRight, clipRectBottom,
+                Region.Op.INTERSECT)
+        } else {
+            canvas.clipRect(
+                clipRectLeft + smallRectOffset, clipRectTop + smallRectOffset,
+                clipRectRight, clipRectBottom)
+        }
+        drawClippedRect(canvas)
+        canvas.restore()
     }
 
     private fun drawCombinedClippingExample(canvas: Canvas) {

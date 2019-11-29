@@ -35,6 +35,7 @@ class ClippedView @JvmOverloads constructor(
     private val rowThree = rowTwo + rectInset + clipRectBottom
     private val rowFour = rowThree + rectInset + clipRectBottom
     private val rowText = rowFour + (1.5 * clipRectBottom)
+    private val rejectRow = rowFour + rectInset + 2*clipRectBottom
 
     private val rectF = RectF(
         rectInset, rectInset,
@@ -58,7 +59,7 @@ class ClippedView @JvmOverloads constructor(
         drawOutsideClippingExample(canvas)
         drawSkewedTextExample(canvas)
         drawTranslatedTextExample(canvas)
-        // drawQuickRejectExample(canvas)
+        drawQuickRejectExample(canvas)
     }
 
     private fun drawClippedRect(canvas: Canvas) {
@@ -207,6 +208,33 @@ class ClippedView @JvmOverloads constructor(
             clipRectLeft, clipRectTop,
             paint
         )
+        canvas.restore()
+    }
+
+    private fun drawQuickRejectExample(canvas: Canvas) {
+        val inClipRectangle = RectF(clipRectRight / 2,
+            clipRectBottom / 2,
+            clipRectRight * 2,
+            clipRectBottom * 2)     // overlaps the clip
+        val notInClipRectangle = RectF(RectF(clipRectRight+1,
+            clipRectBottom+1,
+            clipRectRight * 2,
+            clipRectBottom * 2))    // lies completely outside the clip
+
+        canvas.save()
+        canvas.translate(columnOne, rejectRow)
+        canvas.clipRect(clipRectLeft,clipRectTop,
+            clipRectRight,clipRectBottom)
+
+        // checks if passed rectangle lies completely inside the current clip
+        if (canvas.quickReject(inClipRectangle, Canvas.EdgeType.AA)) {
+            // inClipRectangle LIES COMPLETELY INSIDE the current clip
+            canvas.drawColor(Color.WHITE)
+        } else {
+            // inClipRectangle LIES COMPLETELY OUTSIDE the current clip
+            canvas.drawColor(Color.BLACK)
+            canvas.drawRect(inClipRectangle, paint)
+        }
         canvas.restore()
     }
 }

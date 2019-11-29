@@ -1,6 +1,7 @@
 package dev.valeryvpetrov.clipping_canvas_object
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
@@ -40,5 +41,55 @@ class ClippedView @JvmOverloads constructor(
         paint.isAntiAlias = true
         paint.strokeWidth = resources.getDimension(R.dimen.strokeWidth)
         paint.textSize = resources.getDimension(R.dimen.textSize)
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        drawBackAndUnclippedRectangle(canvas)
+        drawDifferenceClippingExample(canvas)
+        drawCircularClippingExample(canvas)
+        drawIntersectionClippingExample(canvas)
+        drawCombinedClippingExample(canvas)
+        drawRoundedRectangleClippingExample(canvas)
+        drawOutsideClippingExample(canvas)
+        drawSkewedTextExample(canvas)
+        drawTranslatedTextExample(canvas)
+        // drawQuickRejectExample(canvas)
+    }
+
+    private fun drawBackAndUnclippedRectangle(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawDifferenceClippingExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawCircularClippingExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawIntersectionClippingExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawCombinedClippingExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawRoundedRectangleClippingExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawOutsideClippingExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawSkewedTextExample(canvas: Canvas) {
+        // TODO
+    }
+
+    private fun drawTranslatedTextExample(canvas: Canvas) {
+        // TODO
     }
 }

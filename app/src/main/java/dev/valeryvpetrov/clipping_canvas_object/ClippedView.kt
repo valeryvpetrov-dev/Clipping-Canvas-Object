@@ -34,7 +34,7 @@ class ClippedView @JvmOverloads constructor(
     private val rowTwo = rowOne + rectInset + clipRectBottom
     private val rowThree = rowTwo + rectInset + clipRectBottom
     private val rowFour = rowThree + rectInset + clipRectBottom
-    private val rowText = rowFour + (1.5* clipRectBottom)
+    private val rowText = rowFour + (1.5 * clipRectBottom)
 
     private val rectF = RectF(
         rectInset, rectInset,
@@ -186,6 +186,16 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawTranslatedTextExample(canvas: Canvas) {
-        // TODO
+        canvas.save()
+        paint.color = Color.GREEN
+        // align the RIGHT side of the text with the origin
+        paint.textAlign = Paint.Align.LEFT
+        canvas.translate(columnTwo, rowText.toFloat())
+        canvas.drawText(
+            resources.getString(R.string.translated),
+            clipRectLeft, clipRectTop,
+            paint
+        )
+        canvas.restore()
     }
 }

@@ -102,7 +102,19 @@ class ClippedView @JvmOverloads constructor(
     }
 
     private fun drawCircularClippingExample(canvas: Canvas) {
-        // TODO
+        canvas.save()
+        canvas.translate(columnOne, rowTwo)
+        // clears any lines and curves from the path but unlike reset(),
+        // keeps the internal data structure for faster reuse
+        path.rewind()
+        path.addCircle(circleRadius, clipRectBottom - circleRadius, circleRadius, Path.Direction.CCW)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            canvas.clipPath(path, Region.Op.DIFFERENCE)
+        } else {
+            canvas.clipOutPath(path)
+        }
+        drawClippedRect(canvas)
+        canvas.restore()
     }
 
     private fun drawIntersectionClippingExample(canvas: Canvas) {

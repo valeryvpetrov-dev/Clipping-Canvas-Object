@@ -28,6 +28,14 @@ class ClippedView @JvmOverloads constructor(
     private val textOffset = resources.getDimension(R.dimen.textOffset)
     private val textSize = resources.getDimension(R.dimen.textSize)
 
+    private val columnOne = rectInset
+    private val columnTwo = columnOne + rectInset + clipRectRight
+    private val rowOne = rectInset
+    private val rowTwo = rowOne + rectInset + clipRectBottom
+    private val rowThree = rowTwo + rectInset + clipRectBottom
+    private val rowFour = rowThree + rectInset + clipRectBottom
+    private val rowText = rowFour + (1.5* clipRectBottom)
+
     init {
         paint.isAntiAlias = true
         paint.strokeWidth = resources.getDimension(R.dimen.strokeWidth)
